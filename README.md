@@ -58,6 +58,18 @@ curl -i -X POST http://localhost:8080/api/reviews/analyze \
   -d '{"text":""}'
 ```
 
+## API documentation
+
+While Uvicorn is running, open [Swagger UI](http://localhost:8080/docs), [ReDoc](http://localhost:8080/redoc), or the [OpenAPI JSON](http://localhost:8080/openapi.json). FastAPI creates the description from the app's routes and models at runtime and caches it.
+
+To export the OpenAPI JSON before deployment, run this from the project directory with `.venv` active:
+
+```bash
+python -c 'import json; from app.main import app; print(json.dumps(app.openapi(), indent=2))' > openapi.json
+```
+
+This writes the specification to `openapi.json`; it does not create a Swagger UI or ReDoc site.
+
 ## Implementation
 
 FastAPI validates the JSON request and calls the sentiment function. Uvicorn serves the ASGI application. VADER returns the sentiment scores. The app labels compound scores of `0.05` or higher as **positive**, `-0.05` or lower as **negative**, and scores between them as **neutral**.
