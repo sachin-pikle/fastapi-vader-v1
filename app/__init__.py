@@ -1,0 +1,1 @@
+"""FastAPI VADER demo application."""
